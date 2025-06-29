@@ -15,7 +15,7 @@
 - MRtrix3
 - ANTs
 - Matlab
-- SPM
+- SPM25
 
 
 ### git
@@ -132,7 +132,7 @@ mrview
 
     ```
     cd ~/Downloads
-    curl -O https://www.nemotos.net/l4n-abis/macOS_2023/ANTS_maci64.zip
+    curl -O https://www.nemotos.net/l4n-abis/macOS_2025/ANTS_maci64.zip
     unzip ANTS_maci64.zip -d ~/
     grep '$HOME/ANTS/install/bin' ~/.zprofile > /dev/null
     if [ $? -eq 1 ]; then
@@ -147,7 +147,7 @@ mrview
 
     ```
     cd ~/Downloads
-    curl -O https://www.nemotos.net/l4n-abis/macOS_2023/ANTS_arm64.zip
+    curl -O https://www.nemotos.net/l4n-abis/macOS_2025/ANTS_arm64.zip
     unzip ANTS_arm64.zip -d ~/
     grep '$HOME/ANTS/install/bin' ~/.zprofile > /dev/null
     if [ $? -eq 1 ]; then
@@ -174,32 +174,22 @@ ANTS
 - "call ANTS or ANTS --help" と出れば大丈夫です
 
 
-### SPM12: Matlab をお持ちの場合
-- SPM12 はMatlabを持っているか持っていないかでインストールの方法が変わります。Matlab をお持ちでない方は、次の "SPM12: Matlab をお持ちでない場合" に従ってセットアップをしてください
+### SPM25: Matlab をお持ちの場合
+- SPM12 はMatlabを持っているか持っていないかでインストールの方法が変わります。Matlab をお持ちでない方は、次の "SPM25: Matlab をお持ちでない場合" に従ってセットアップをしてください
 
-- Matlab R2023b 以降、Apple siliconにnative対応しましたが、ときにバグがあるようです。Matlab R2022b の環境で構築しています。
-
-### SPM12のインストール
-- GitHub経由が便利です
-- ホームディレクトリの下に spm12 をインストールすることとします
+### SPM25のインストール
+- SPM12と共存させるために以下のようにします。
 
     ```
     cd #ホームディレクトリに移動します
-    git clone https://github.com/spm/spm12.git
+    curl -L -Ohttps://github.com/spm/spm/releases/download/25.01.02/spm_25.01.02.zip
+    unzip spm_25.01.02.zip -d spm25
 
     ```
 
-- SPMはmacOSのセキュリティで実行できないことがあるため、この問題を回避するために、ターミナルから以下を実行します
+- この後、Matlabのパス設定で、/Users/ご自分のユーザ名/spm25/spm を指定してください
 
-    ```
-    sudo xattr -r -d com.apple.quarantine ~/spm12
-    sudo find ~/spm12 -name '*.mexmaci64' -exec spctl --add {} \;
-
-    ```
-
-- この後、Matlabのパス設定で、/Users/ご自分のユーザ名/spm12 を指定してください
-
-#### SPM12の確認
+#### SPM25の確認
 - Matlab から
 
     ```
@@ -209,21 +199,33 @@ ANTS
 とタイプし、SPMが起動すればOKです
 
 
-### SPM12: Matlab をお持ちでない場合
+### SPM25: Matlab をお持ちでない場合
 
-- コース用に SPM12 を Matlab がなくても動作するようにスタンドアロン版を作成しました。Intel macでもApple siliconでも動作します。以下に従ってセットアップを行ってください
+#### ファイルの入手
+- 以下でファイルを入手します。
 
-### Matlab Runtime R2022b の入手
+
+    ```
+    # Apple silicon
+    cd #ホームディレクトリにインストールする場合
+    curl -L -O https://github.com/spm/spm/releases/download/25.01.02/spm_standalone_25.01.02_macOS_Apple_Silicon.zip
+    unzip spm_standalone_25.01.02_macOS_Apple_Silicon.zip
+    ```
+
+    ```
+    # Intel mac
+    cd #ホームディレクトリにインストールする場合
+    curl -L -O https://github.com/spm/spm/releases/download/25.01.02/spm_standalone_25.01.02_macOS_Intel.zip
+    unzip spm_standalone_25.01.02_macOS_Intel.zip
+    ```
+
+#### runtime のインストール
+
+
 
 - ターミナルに以下を入力し、Matlab Runtime R2022b を入手します。Intel Mac, Apple Silicon ともに共通です。
 
     ```
-    cd ~/Downloads
-    curl -O https://ssd.mathworks.com/supportfiles/downloads/R2022b/Release/7/deployment_files/installer/complete/maci64/MATLAB_Runtime_R2022b_Update_7_maci64.dmg.zip
-    unzip MATLAB_Runtime_R2022b_Update_7_maci64.dmg.zip
-
-    ```
-
 - ダウンロードフォルダにある MATLAB_Runtime_R2022b_Update_7_maci64.dmg をダブルクリックします
 
 - InstallForMacOSX をダブルクリックします。**インストール先はデフォルトのまま変更しないでください**
