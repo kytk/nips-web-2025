@@ -177,12 +177,12 @@ ANTS
 ### SPM25: Matlab をお持ちの場合
 - SPM12 はMatlabを持っているか持っていないかでインストールの方法が変わります。Matlab をお持ちでない方は、次の "SPM25: Matlab をお持ちでない場合" に従ってセットアップをしてください
 
-### SPM25のインストール
+#### SPM25のインストール
 - SPM12と共存させるために以下のようにします。
 
     ```
     cd #ホームディレクトリに移動します
-    curl -L -Ohttps://github.com/spm/spm/releases/download/25.01.02/spm_25.01.02.zip
+    curl -L -O https://github.com/spm/spm/releases/download/25.01.02/spm_25.01.02.zip
     unzip spm_25.01.02.zip -d spm25
 
     ```
@@ -207,59 +207,56 @@ ANTS
 
     ```
     # Apple silicon
-    cd #ホームディレクトリにインストールする場合
+    cd /Applications #アプリケーションフォルダにインストールする場合
     curl -L -O https://github.com/spm/spm/releases/download/25.01.02/spm_standalone_25.01.02_macOS_Apple_Silicon.zip
     unzip spm_standalone_25.01.02_macOS_Apple_Silicon.zip
     ```
 
     ```
     # Intel mac
-    cd #ホームディレクトリにインストールする場合
+    cd /Applications #アプリケーションフォルダにインストールする場合
     curl -L -O https://github.com/spm/spm/releases/download/25.01.02/spm_standalone_25.01.02_macOS_Intel.zip
     unzip spm_standalone_25.01.02_macOS_Intel.zip
     ```
 
-#### runtime のインストール
+#### runtime のインストール (Apple silicon, Intel mac共通)
 
-
-
-- ターミナルに以下を入力し、Matlab Runtime R2022b を入手します。Intel Mac, Apple Silicon ともに共通です。
+- ターミナルから以下のようにタイプします
 
     ```
-- ダウンロードフォルダにある MATLAB_Runtime_R2022b_Update_7_maci64.dmg をダブルクリックします
+    open /Applications/runtime_installer
+    ```
 
-- InstallForMacOSX をダブルクリックします。**インストール先はデフォルトのまま変更しないでください**
+- そうすると、Runtime_R2024b_for_spm_standalone_25.01.02 のアイコンが出てきます。こちらをダブルクリックしてインストールしてください。パスはデフォルトのまま変えないでください
 
-### SPM12 standalone のインストール
+#### ターミナルから起動するためのセットアップ
 
-- 以下で SPM12 standalone を入手し、/Applications の下にインストールします。
+- 以下をターミナルにコピペします
 
     ```
-    cd ~/Downloads
-    curl -O https://www.nemotos.net/l4n-abis/macOS_2023/spm12_maci64.zip
-    unzip spm12_maci64.zip -d /Applications/
     echo "" >> ~/.zprofile
-    echo "# Alias for SPM12" >> ~/.zprofile
-    echo "alias spm='/Applications/spm12_standalone/run_spm12.sh /Applications/MATLAB/MATLAB_Runtime/R2022b'" >> ~/.zprofile
+    echo "# Alias for SPM25" >> ~/.zprofile
+    echo "alias spm25='/Applications/spm_standalone/run_spm25.sh /Applications/MATLAB/MATLAB_Runtime/R2024b'" >> ~/.zprofile
 
     ```
 
 - 一度ターミナルを閉じます。
 
-### SPM12 standalone の確認
+### SPM25 standalone の確認
 
-- GUIとコマンドラインのどちらからも起動できます
+- GUIとターミナルのどちらからも起動できますが、ターミナルからの実行をおすすめします。ターミナルから起動すると、本来Matlabに出力される内容がすべてターミナルに出力されますが、GUIからの起動だとそれらを見ることができないからです。
 
-- GUI の場合は、アプリケーションの中にある spm12_standalone の中の spm をダブルクリックしてください
-
-- コマンドラインの場合は、ターミナルを起動した後、spm と入力すればSPMが起動します。ただ、初回は起動するまでに数分時間がかかるため、焦らずにお待ちください
-
+- コマンドラインの場合は、ターミナルを起動した後、spm25 と入力すればSPMが起動します。ただ、初回は起動するまでに数分時間がかかるため、焦らずにお待ちください
 
     ```
-    spm
+    spm25
     ```
 
+とタイプし、SPMが起動すればOKです。
+
+- GUI の場合は、アプリケーションの中にある spm_standalone の中の spm25 をダブルクリックしてください。
 
 
-とタイプし、SPMが起動すればOKです
+
+
 
